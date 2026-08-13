@@ -72,6 +72,12 @@ python scripts/regenerate_figures.py
 #        fig4b_pr_curve.{png,pdf}, fig5_uncertainty.{png,pdf},
 #        fig6_error_detection.{png,pdf}, fig7_alpha_sensitivity.{png,pdf},
 #        fig8_calibration_ci.{png,pdf}
+#
+# On native Windows with a non-UTF-8 console codepage, step 2 can raise
+# UnicodeEncodeError on its progress prints (a console-encoding issue, not
+# a code or data problem). Work around it with:
+#   PYTHONUTF8=1 python scripts/regenerate_figures.py        # bash
+#   $env:PYTHONUTF8 = "1"; python scripts/regenerate_figures.py   # PowerShell
 # Note: the Petri Net schematic (fig3 in the manuscript) is a static diagram
 # of the model in src/petri_net.py, not a data-driven plot, and is not
 # reproduced by this script.
@@ -88,6 +94,34 @@ python -c "import numpy as np; a=np.load('determinism_check_seed13_a.npz'); b=np
 
 On Windows PowerShell, set the environment variable separately instead of
 inline, e.g. `$env:PYTHONHASHSEED = "0"; python scripts/determinism_check_run.py 13 a`.
+
+## Independently verified
+
+This exact repository layout was smoke-tested end-to-end (imports, data
+generation, model construction, MC Dropout, MDP escalation, Petri Net
+verification) and a full run of `scripts/run_authoritative.py` and
+`scripts/regenerate_figures.py` was executed on TensorFlow 2.21.0 /
+NumPy 2.2.6 / scikit-learn 1.8.0. Results:
+
+- Test-cohort composition (76 stays, 18 positive, onset median = 98
+  timesteps), model parameter counts (753,601 / 382,977), and the
+  deterministic SOFA/qSOFA baselines reproduced **exactly** — these come
+  from the seeded NumPy generator and feature arithmetic, which are fully
+  deterministic across environments.
+- The trained-model metrics (AUROC/AUPRC of the CNN-BiLSTM and MC Dropout
+  variants, the uncertainty variance ratio, and everything downstream of
+  it) reproduced **within the same order of magnitude but not bit-for-bit**
+  (e.g. MC-Dropout AUROC 0.847 vs. the manuscript's reported 0.877 — inside
+  the manuscript's own reported 95% bootstrap CI of [0.766, 0.963]). This
+  is expected: `run_authoritative.py` does not enable TensorFlow's
+  op-determinism flags, so GPU/CPU training is only seed-*stable*, not
+  bit-for-bit portable, across machines — exactly the caveat the
+  manuscript's Data Availability and Section 4.10 already state. Use
+  `run_multiseed_10seed_deterministic.py` / `determinism_check_run.py` (which
+  do enable op-determinism) if bit-for-bit reproducibility on one fixed
+  machine is what you need to check.
+- `scripts/regenerate_figures.py` produced all 7 data-driven figures
+  correctly once the Windows console-encoding workaround above was applied.
 
 ## Notes on the released configuration
 
