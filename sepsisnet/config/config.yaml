@@ -1,0 +1,36 @@
+model:
+  architecture: "1D CNN-BiLSTM"
+  input_timesteps: 240
+  n_features: 20
+  conv_filters: [64, 128, 256]
+  conv_kernel_size: 3
+  lstm_units: [128, 64]
+  dense_units: [256, 128]
+  dropout_rate: 0.5
+  learning_rate: 0.001
+
+training:
+  epochs: 30
+  batch_size: 32
+  early_stopping_patience: 5
+  reduce_lr_patience: 3
+  reduce_lr_factor: 0.5
+
+data:
+  n_patients: 500
+  n_timesteps: 240
+  n_features: 20
+  sepsis_rate: 0.236
+  train_ratio: 0.70
+  val_ratio: 0.15
+  test_ratio: 0.15
+  random_seed: 42
+
+uncertainty:
+  n_mc_iterations: 100
+
+mdp:
+  consecutive_alerts_threshold: 2
+
+petri_net:
+  icu_capacity: 10
