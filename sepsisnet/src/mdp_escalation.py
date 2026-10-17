@@ -7,6 +7,18 @@ Rewards  : TP (+100), FN (-500), FP (-50), TN (+10)
 
 Hysteresis prevents premature escalation by requiring a configurable
 number of consecutive non-GREEN states before escalating.
+
+Revision 4 changes (defaults reproduce Revision 3 behaviour exactly):
+  - alpha in p + alpha*sigma is a constructor parameter (default 0.10).
+  - process_sequence(..., stay_ids=None): with stay_ids, the consecutive-alert
+    counter is kept per stay, so predictions of different stays never
+    influence each other. Without stay_ids (default, legacy) one counter runs
+    across the whole input sequence, i.e. across different patients when the
+    input has one prediction per stay.
+  - get_action's prev_state argument is unused; it is kept only for API
+    compatibility.
+
+This is a simulated stay-level rule, not longitudinal bedside alerting.
 """
 from __future__ import annotations
 
@@ -57,14 +69,16 @@ class AlertEscalationMDP:
     before escalating to the next action level.
     """
 
-    def __init__(self, consecutive_threshold: int = 2) -> None:
+    def __init__(self, consecutive_threshold: int = 2,
+                 alpha: float = 0.10) -> None:
         self.consecutive_threshold = consecutive_threshold
+        self.alpha = alpha
 
     # ------------------------------------------------------------------
 
     def get_state(self, sepsis_prob: float, uncertainty: float) -> AlertState:
         """Map prediction + uncertainty to an alert state."""
-        adjusted = float(sepsis_prob) + 0.10 * float(uncertainty)
+        adjusted = float(sepsis_prob) + self.alpha * float(uncertainty)
         if adjusted < 0.10:
             return AlertState.GREEN
         elif adjusted < 0.30:
@@ -82,6 +96,8 @@ class AlertEscalationMDP:
     ) -> AlertAction:
         """
         Select action based on current state and alert history.
+
+        prev_state is unused (kept for API compatibility).
 
         Hysteresis prevents false-positive escalation cascades:
         YELLOW requires `consecutive_threshold` counts before Notify,
@@ -115,6 +131,7 @@ class AlertEscalationMDP:
         y_pred_mean: np.ndarray,
         y_pred_std: np.ndarray,
         y_true: np.ndarray,
+        stay_ids: np.ndarray | None = None,
     ) -> Tuple[List[Dict], List[AlertState], List[AlertAction], np.ndarray]:
         """
         Simulate the MDP over a patient cohort.
@@ -124,6 +141,9 @@ class AlertEscalationMDP:
         y_pred_mean : mean P(sepsis),  shape (n,)
         y_pred_std  : prediction std,  shape (n,)
         y_true      : true labels,     shape (n,)
+        stay_ids    : optional stay identifier per prediction, shape (n,).
+                      If given, the consecutive counter is per stay; if None,
+                      one counter spans the whole sequence (legacy).
 
         Returns
         -------
@@ -139,10 +159,20 @@ class AlertEscalationMDP:
 
         prev_state = AlertState.GREEN
         consecutive = 0
+        per_stay_count: Dict = {}
+        per_stay_prev: Dict = {}
 
         for i in range(len(y_pred_mean)):
             state = self.get_state(y_pred_mean[i], y_pred_std[i])
-            consecutive = (consecutive + 1) if state > AlertState.GREEN else 0
+            if stay_ids is None:
+                consecutive = (consecutive + 1) if state > AlertState.GREEN else 0
+            else:
+                key = stay_ids[i].item() if hasattr(stay_ids[i], "item") else stay_ids[i]
+                prev_state = per_stay_prev.get(key, AlertState.GREEN)
+                consecutive = ((per_stay_count.get(key, 0) + 1)
+                               if state > AlertState.GREEN else 0)
+                per_stay_count[key] = consecutive
+                per_stay_prev[key] = state
             action = self.get_action(state, prev_state, consecutive)
             reward = self.compute_reward(action, int(y_true[i]))
 

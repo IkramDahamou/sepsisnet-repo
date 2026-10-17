@@ -1,0 +1,333 @@
+{
+  "description": "Absolute differences between deterministic (op-determinism enabled) and non-deterministic (default TF ops) reruns of the SAME 10 seeds under the same fast-sweep config (epochs=15, MC=50). Quantifies how much of the seed-to-seed variability reported under the non-deterministic run was actually run-to-run training noise rather than genuine seed sensitivity.",
+  "det_file": "multiseed_results_10seed_deterministic.json",
+  "nondet_file": "multiseed_results_10seed_nondeterministic.json",
+  "per_seed_model_diffs": [
+    {
+      "seed": 7,
+      "model": "CNN_LSTM_deterministic",
+      "det_AUROC": 0.9674,
+      "nondet_AUROC": 0.8975,
+      "abs_diff_AUROC": 0.0699,
+      "det_AUPRC": 0.9035,
+      "nondet_AUPRC": 0.8586,
+      "abs_diff_AUPRC": 0.0449
+    },
+    {
+      "seed": 7,
+      "model": "CNN_LSTM_MC",
+      "det_AUROC": 0.9636,
+      "nondet_AUROC": 0.9176,
+      "abs_diff_AUROC": 0.046,
+      "det_AUPRC": 0.8738,
+      "nondet_AUPRC": 0.8763,
+      "abs_diff_AUPRC": 0.0025
+    },
+    {
+      "seed": 7,
+      "model": "LSTM_only",
+      "det_AUROC": 0.887,
+      "nondet_AUROC": 0.9157,
+      "abs_diff_AUROC": 0.0287,
+      "det_AUPRC": 0.8441,
+      "nondet_AUPRC": 0.857,
+      "abs_diff_AUPRC": 0.0129
+    },
+    {
+      "seed": 13,
+      "model": "CNN_LSTM_deterministic",
+      "det_AUROC": 0.8649,
+      "nondet_AUROC": 0.8946,
+      "abs_diff_AUROC": 0.0297,
+      "det_AUPRC": 0.7506,
+      "nondet_AUPRC": 0.7515,
+      "abs_diff_AUPRC": 0.0009
+    },
+    {
+      "seed": 13,
+      "model": "CNN_LSTM_MC",
+      "det_AUROC": 0.8908,
+      "nondet_AUROC": 0.8793,
+      "abs_diff_AUROC": 0.0115,
+      "det_AUPRC": 0.7828,
+      "nondet_AUPRC": 0.7395,
+      "abs_diff_AUPRC": 0.0433
+    },
+    {
+      "seed": 13,
+      "model": "LSTM_only",
+      "det_AUROC": 0.908,
+      "nondet_AUROC": 0.9272,
+      "abs_diff_AUROC": 0.0192,
+      "det_AUPRC": 0.8073,
+      "nondet_AUPRC": 0.8232,
+      "abs_diff_AUPRC": 0.0159
+    },
+    {
+      "seed": 21,
+      "model": "CNN_LSTM_deterministic",
+      "det_AUROC": 0.7739,
+      "nondet_AUROC": 0.887,
+      "abs_diff_AUROC": 0.1131,
+      "det_AUPRC": 0.6636,
+      "nondet_AUPRC": 0.8257,
+      "abs_diff_AUPRC": 0.1621
+    },
+    {
+      "seed": 21,
+      "model": "CNN_LSTM_MC",
+      "det_AUROC": 0.751,
+      "nondet_AUROC": 0.8611,
+      "abs_diff_AUROC": 0.1101,
+      "det_AUPRC": 0.6211,
+      "nondet_AUPRC": 0.8121,
+      "abs_diff_AUPRC": 0.191
+    },
+    {
+      "seed": 21,
+      "model": "LSTM_only",
+      "det_AUROC": 0.9272,
+      "nondet_AUROC": 0.9674,
+      "abs_diff_AUROC": 0.0402,
+      "det_AUPRC": 0.8657,
+      "nondet_AUPRC": 0.9151,
+      "abs_diff_AUPRC": 0.0494
+    },
+    {
+      "seed": 42,
+      "model": "CNN_LSTM_deterministic",
+      "det_AUROC": 0.8678,
+      "nondet_AUROC": 0.8429,
+      "abs_diff_AUROC": 0.0249,
+      "det_AUPRC": 0.6721,
+      "nondet_AUPRC": 0.6357,
+      "abs_diff_AUPRC": 0.0364
+    },
+    {
+      "seed": 42,
+      "model": "CNN_LSTM_MC",
+      "det_AUROC": 0.8515,
+      "nondet_AUROC": 0.8429,
+      "abs_diff_AUROC": 0.0086,
+      "det_AUPRC": 0.6135,
+      "nondet_AUPRC": 0.6488,
+      "abs_diff_AUPRC": 0.0353
+    },
+    {
+      "seed": 42,
+      "model": "LSTM_only",
+      "det_AUROC": 0.8429,
+      "nondet_AUROC": 0.8429,
+      "abs_diff_AUROC": 0.0,
+      "det_AUPRC": 0.7294,
+      "nondet_AUPRC": 0.6826,
+      "abs_diff_AUPRC": 0.0468
+    },
+    {
+      "seed": 55,
+      "model": "CNN_LSTM_deterministic",
+      "det_AUROC": 0.8381,
+      "nondet_AUROC": 0.8994,
+      "abs_diff_AUROC": 0.0613,
+      "det_AUPRC": 0.6892,
+      "nondet_AUPRC": 0.7564,
+      "abs_diff_AUPRC": 0.0672
+    },
+    {
+      "seed": 55,
+      "model": "CNN_LSTM_MC",
+      "det_AUROC": 0.8094,
+      "nondet_AUROC": 0.8908,
+      "abs_diff_AUROC": 0.0814,
+      "det_AUPRC": 0.6717,
+      "nondet_AUPRC": 0.8135,
+      "abs_diff_AUPRC": 0.1418
+    },
+    {
+      "seed": 55,
+      "model": "LSTM_only",
+      "det_AUROC": 0.8908,
+      "nondet_AUROC": 0.9119,
+      "abs_diff_AUROC": 0.0211,
+      "det_AUPRC": 0.806,
+      "nondet_AUPRC": 0.7811,
+      "abs_diff_AUPRC": 0.0249
+    },
+    {
+      "seed": 67,
+      "model": "CNN_LSTM_deterministic",
+      "det_AUROC": 0.933,
+      "nondet_AUROC": 0.887,
+      "abs_diff_AUROC": 0.046,
+      "det_AUPRC": 0.8471,
+      "nondet_AUPRC": 0.8145,
+      "abs_diff_AUPRC": 0.0326
+    },
+    {
+      "seed": 67,
+      "model": "CNN_LSTM_MC",
+      "det_AUROC": 0.9234,
+      "nondet_AUROC": 0.8573,
+      "abs_diff_AUROC": 0.0661,
+      "det_AUPRC": 0.8339,
+      "nondet_AUPRC": 0.7643,
+      "abs_diff_AUPRC": 0.0696
+    },
+    {
+      "seed": 67,
+      "model": "LSTM_only",
+      "det_AUROC": 0.8927,
+      "nondet_AUROC": 0.8592,
+      "abs_diff_AUROC": 0.0335,
+      "det_AUPRC": 0.8067,
+      "nondet_AUPRC": 0.7208,
+      "abs_diff_AUPRC": 0.0859
+    },
+    {
+      "seed": 79,
+      "model": "CNN_LSTM_deterministic",
+      "det_AUROC": 0.9205,
+      "nondet_AUROC": 0.955,
+      "abs_diff_AUROC": 0.0345,
+      "det_AUPRC": 0.8175,
+      "nondet_AUPRC": 0.8762,
+      "abs_diff_AUPRC": 0.0587
+    },
+    {
+      "seed": 79,
+      "model": "CNN_LSTM_MC",
+      "det_AUROC": 0.9052,
+      "nondet_AUROC": 0.9521,
+      "abs_diff_AUROC": 0.0469,
+      "det_AUPRC": 0.7657,
+      "nondet_AUPRC": 0.8761,
+      "abs_diff_AUPRC": 0.1104
+    },
+    {
+      "seed": 79,
+      "model": "LSTM_only",
+      "det_AUROC": 0.9033,
+      "nondet_AUROC": 0.9119,
+      "abs_diff_AUROC": 0.0086,
+      "det_AUPRC": 0.8577,
+      "nondet_AUPRC": 0.8222,
+      "abs_diff_AUPRC": 0.0355
+    },
+    {
+      "seed": 91,
+      "model": "CNN_LSTM_deterministic",
+      "det_AUROC": 0.7605,
+      "nondet_AUROC": 0.8889,
+      "abs_diff_AUROC": 0.1284,
+      "det_AUPRC": 0.7319,
+      "nondet_AUPRC": 0.812,
+      "abs_diff_AUPRC": 0.0801
+    },
+    {
+      "seed": 91,
+      "model": "CNN_LSTM_MC",
+      "det_AUROC": 0.7874,
+      "nondet_AUROC": 0.8659,
+      "abs_diff_AUROC": 0.0785,
+      "det_AUPRC": 0.7441,
+      "nondet_AUPRC": 0.776,
+      "abs_diff_AUPRC": 0.0319
+    },
+    {
+      "seed": 91,
+      "model": "LSTM_only",
+      "det_AUROC": 0.8075,
+      "nondet_AUROC": 0.8123,
+      "abs_diff_AUROC": 0.0048,
+      "det_AUPRC": 0.7675,
+      "nondet_AUPRC": 0.7852,
+      "abs_diff_AUPRC": 0.0177
+    },
+    {
+      "seed": 103,
+      "model": "CNN_LSTM_deterministic",
+      "det_AUROC": 0.7797,
+      "nondet_AUROC": 0.8056,
+      "abs_diff_AUROC": 0.0259,
+      "det_AUPRC": 0.7512,
+      "nondet_AUPRC": 0.7289,
+      "abs_diff_AUPRC": 0.0223
+    },
+    {
+      "seed": 103,
+      "model": "CNN_LSTM_MC",
+      "det_AUROC": 0.7548,
+      "nondet_AUROC": 0.7797,
+      "abs_diff_AUROC": 0.0249,
+      "det_AUPRC": 0.707,
+      "nondet_AUPRC": 0.6942,
+      "abs_diff_AUPRC": 0.0128
+    },
+    {
+      "seed": 103,
+      "model": "LSTM_only",
+      "det_AUROC": 0.8132,
+      "nondet_AUROC": 0.818,
+      "abs_diff_AUROC": 0.0048,
+      "det_AUPRC": 0.7803,
+      "nondet_AUPRC": 0.7786,
+      "abs_diff_AUPRC": 0.0017
+    },
+    {
+      "seed": 115,
+      "model": "CNN_LSTM_deterministic",
+      "det_AUROC": 0.8199,
+      "nondet_AUROC": 0.8774,
+      "abs_diff_AUROC": 0.0575,
+      "det_AUPRC": 0.7193,
+      "nondet_AUPRC": 0.7785,
+      "abs_diff_AUPRC": 0.0592
+    },
+    {
+      "seed": 115,
+      "model": "CNN_LSTM_MC",
+      "det_AUROC": 0.8161,
+      "nondet_AUROC": 0.8314,
+      "abs_diff_AUROC": 0.0153,
+      "det_AUPRC": 0.6648,
+      "nondet_AUPRC": 0.7274,
+      "abs_diff_AUPRC": 0.0626
+    },
+    {
+      "seed": 115,
+      "model": "LSTM_only",
+      "det_AUROC": 0.8678,
+      "nondet_AUROC": 0.8199,
+      "abs_diff_AUROC": 0.0479,
+      "det_AUPRC": 0.8098,
+      "nondet_AUPRC": 0.7798,
+      "abs_diff_AUPRC": 0.03
+    }
+  ],
+  "overall": {
+    "AUROC_abs_diff_mean": 0.043,
+    "AUROC_abs_diff_max": 0.1284,
+    "AUPRC_abs_diff_mean": 0.0529,
+    "AUPRC_abs_diff_max": 0.191
+  },
+  "per_model": {
+    "CNN_LSTM_deterministic": {
+      "AUROC_abs_diff_mean": 0.0591,
+      "AUROC_abs_diff_max": 0.1284,
+      "AUPRC_abs_diff_mean": 0.0564,
+      "AUPRC_abs_diff_max": 0.1621
+    },
+    "CNN_LSTM_MC": {
+      "AUROC_abs_diff_mean": 0.0489,
+      "AUROC_abs_diff_max": 0.1101,
+      "AUPRC_abs_diff_mean": 0.0701,
+      "AUPRC_abs_diff_max": 0.191
+    },
+    "LSTM_only": {
+      "AUROC_abs_diff_mean": 0.0209,
+      "AUROC_abs_diff_max": 0.0479,
+      "AUPRC_abs_diff_mean": 0.0321,
+      "AUPRC_abs_diff_max": 0.0859
+    }
+  }
+}
