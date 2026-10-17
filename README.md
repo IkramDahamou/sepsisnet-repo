@@ -1,147 +1,90 @@
-# SepsisNet
+# SepsisNet — code release for Revision 4
 
-Code release accompanying the manuscript *"An Uncertainty-Aware Deep
-Learning Baseline for Synthetic ICU Sepsis-Status Classification with
-Structured Alert Escalation"* (Dahamou & Daoui).
+Code, tests and scripts for *"An Uncertainty-Aware Deep Learning Baseline for
+Synthetic ICU Sepsis-Status Classification with Structured Alert Escalation"*
+(Dahamou & Daoui). **No real patient data are used.** This is a methodological
+baseline on synthetic data, not a clinically validated system.
 
-This repository contains the complete generator, model, uncertainty,
-escalation-policy, and Petri Net code, together with the evaluation and
-figure-generation scripts referenced in the manuscript's Data Availability
-statement. **The dataset used throughout the paper is entirely synthetic**
-and is produced by the generator in this repository (`sepsisnet/src/data_loader.py`);
-no PhysioNet-restricted or other real patient data is used or distributed
-here.
+## Contents
 
-## Repository layout
+| Path | Purpose |
+|---|---|
+| `sepsisnet/src/` | Generator, model, MC Dropout (BatchNorm in inference mode), escalation rule, Petri Net |
+| `tests/` | pytest suite (MC Dropout / BatchNorm behaviour, escalation rule) |
+| `scripts/` | Runners and analysis scripts (below) |
+| `reference/` | Previous (Revision 3) `uncertainty.py` and `mdp_escalation.py`, used only by equivalence tests |
+| `reference_data/` | Revision 3 predictions and multi-seed results, used by tests and the Table 7 check |
+| `table9_provenance/` | Scripts and result files behind the previous version's deterministic vs non-deterministic comparison (manuscript Table 9), with SHA-256 hashes (`PROVENANCE.json`) |
+| `RELEASE_ARTIFACTS.md` | Trained weights, predictions and results to download (Zenodo) |
+
+## Environment
 
 ```
-sepsisnet/
-├── sepsisnet/                  # released package
-│   ├── src/
-│   │   ├── data_loader.py      # synthetic ICU data generator + preprocessor
-│   │   ├── models.py           # 1D CNN-BiLSTM model factory
-│   │   ├── uncertainty.py      # Monte Carlo Dropout uncertainty estimation
-│   │   ├── mdp_escalation.py   # MDP alert-escalation policy (GREEN→RED)
-│   │   └── petri_net.py        # Petri Net formal verification of the alert workflow
-│   ├── config/config.yaml      # documented hyperparameters (see note below)
-│   └── requirements.txt
-└── scripts/
-    ├── run_authoritative.py                 # single-seed (42) run reproducing every reported number
-    ├── regenerate_figures.py                # regenerates the data-driven figures from saved predictions
-    ├── run_multiseed_fast.py                # 3-seed variability check (seeds 7, 13, 21)
-    ├── run_multiseed_10seed_deterministic.py# 10-seed deterministic sweep (seeds 7-115)
-    └── determinism_check_run.py             # bit-for-bit determinism verifier for a single seed
+pip install -r requirements.txt     # TF 2.21.0, Keras 3.14.1, NumPy 2.2.6, scikit-learn 1.8.0, ...
 ```
-
-## Installation
-
-```bash
-git clone https://github.com/ikramdahamou/sepsisnet
-cd sepsisnet
-pip install -r sepsisnet/requirements.txt
+All results were produced on CPU (Windows 11, Python 3.13.1). Every runner must be
+started with these variables set **before** Python starts:
 ```
-
-Requires Python 3.10+ (the reported numbers in the manuscript were produced
-under Python 3.13, TensorFlow 2.21.0, NumPy 2.4, scikit-learn 1.8, CPU-only).
-Because TensorFlow's numeric behaviour under fixed seeds is not perfectly
-portable across major versions or between CPU and GPU, exact bit-for-bit
-reproduction on a different environment is not guaranteed — the manuscript
-quantifies this via bootstrap 95% CIs (Section 4.1) and the multi-seed
-apparatus (Section 4.10).
-
-The scripts add `sepsisnet/src` to `sys.path` themselves at import time, so
-no `PYTHONPATH` configuration is needed. **Run every command below from the
-repository root** — outputs are written relative to the current working
-directory.
-
-## Reproducing the reported results
-
-```bash
-# 1. Run the authoritative pipeline (seed 42, ~20-30 min on CPU).
-#    Trains the full CNN-BiLSTM and the LSTM-only ablation, runs 100-pass
-#    MC Dropout, bootstraps 95% CIs, computes calibration, operating points,
-#    SOFA/qSOFA baselines, uncertainty error-detection, alpha-sensitivity,
-#    and the escalation-policy simulation.
-python scripts/run_authoritative.py
-# Writes ./revision3_results.json and ./real_pred_full.npz
-
-# 2. Regenerate the data-driven figures from the saved predictions.
-mkdir -p figures
-python scripts/regenerate_figures.py
-# Writes figures/fig2_cnn_lstm.{png,pdf}, fig4a_roc_curve.{png,pdf},
-#        fig4b_pr_curve.{png,pdf}, fig5_uncertainty.{png,pdf},
-#        fig6_error_detection.{png,pdf}, fig7_alpha_sensitivity.{png,pdf},
-#        fig8_calibration_ci.{png,pdf}
-#
-# On native Windows with a non-UTF-8 console codepage, step 2 can raise
-# UnicodeEncodeError on its progress prints (a console-encoding issue, not
-# a code or data problem). Work around it with:
-#   PYTHONUTF8=1 python scripts/regenerate_figures.py        # bash
-#   $env:PYTHONUTF8 = "1"; python scripts/regenerate_figures.py   # PowerShell
-# Note: the Petri Net schematic (fig3 in the manuscript) is a static diagram
-# of the model in src/petri_net.py, not a data-driven plot, and is not
-# reproduced by this script.
-
-# 3. (Optional) Multi-seed variability.
-python scripts/run_multiseed_fast.py                       # fast, 3 extra seeds
-PYTHONHASHSEED=0 python scripts/run_multiseed_10seed_deterministic.py  # full 10-seed deterministic sweep
-
-# 4. (Optional) Verify bit-for-bit determinism on a single seed.
-PYTHONHASHSEED=0 python scripts/determinism_check_run.py 13 a
-PYTHONHASHSEED=0 python scripts/determinism_check_run.py 13 b
-python -c "import numpy as np; a=np.load('determinism_check_seed13_a.npz'); b=np.load('determinism_check_seed13_b.npz'); print('bit-for-bit identical:', all(np.array_equal(a[k], b[k]) for k in a.files))"
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONHASHSEED=0 PYTHONDONTWRITEBYTECODE=1
 ```
+Runners call `keras.utils.set_random_seed(seed)` (Python, NumPy and TensorFlow),
+enable TensorFlow op determinism, disable oneDNN and use one thread. Each runner
+takes an explicit output folder and refuses to overwrite an existing one.
 
-On Windows PowerShell, set the environment variable separately instead of
-inline, e.g. `$env:PYTHONHASHSEED = "0"; python scripts/determinism_check_run.py 13 a`.
+## Reproducibility statement
 
-## Independently verified
+On this platform, the QR decomposition used by the Keras orthogonal initialiser
+of the LSTM recurrent kernels can return one of two numerically different results
+in different processes, and the difference can grow during training. Running each
+of the 10 seeds twice in separate processes, 5 seeds were bit-identical and 5
+differed: by at most 0.114 in a predicted probability, at most 0.013 in a per-seed
+AUROC or AUPRC, at most 0.052 in a per-seed variance ratio, and at most 0.0054 in
+any 10-seed mean. Results are therefore reproducible to these tolerances, not
+bit-for-bit. The trained weights and predictions of every reported run
+(`RELEASE_ARTIFACTS.md`) allow every reported number to be recomputed exactly.
 
-This exact repository layout was smoke-tested end-to-end (imports, data
-generation, model construction, MC Dropout, MDP escalation, Petri Net
-verification) and a full run of `scripts/run_authoritative.py` and
-`scripts/regenerate_figures.py` was executed on TensorFlow 2.21.0 /
-NumPy 2.2.6 / scikit-learn 1.8.0. Results:
+## Commands: every table and figure
 
-- Test-cohort composition (76 stays, 18 positive, onset median = 98
-  timesteps), model parameter counts (753,601 / 382,977), and the
-  deterministic SOFA/qSOFA baselines reproduced **exactly** — these come
-  from the seeded NumPy generator and feature arithmetic, which are fully
-  deterministic across environments.
-- The trained-model metrics (AUROC/AUPRC of the CNN-BiLSTM and MC Dropout
-  variants, the uncertainty variance ratio, and everything downstream of
-  it) reproduced **within the same order of magnitude but not bit-for-bit**
-  (e.g. MC-Dropout AUROC 0.847 vs. the manuscript's reported 0.877 — inside
-  the manuscript's own reported 95% bootstrap CI of [0.766, 0.963]). This
-  is expected: `run_authoritative.py` does not enable TensorFlow's
-  op-determinism flags, so GPU/CPU training is only seed-*stable*, not
-  bit-for-bit portable, across machines — exactly the caveat the
-  manuscript's Data Availability and Section 4.10 already state. Use
-  `run_multiseed_10seed_deterministic.py` / `determinism_check_run.py` (which
-  do enable op-determinism) if bit-for-bit reproducibility on one fixed
-  machine is what you need to check.
-- `scripts/regenerate_figures.py` produced all 7 data-driven figures
-  correctly once the Windows console-encoding workaround above was applied.
+```
+# 0. tests
+python -m pytest tests -v
 
-## Notes on the released configuration
+# 1. 10-seed sweep (Tables 2-5, Figure 3): run a (reported) and run b (reproducibility)
+python scripts/run_sweep.py --scheme keras_set_random_seed --tag a
+python scripts/run_sweep.py --scheme keras_set_random_seed --tag b
+python scripts/summarize_sweep.py --out results/sweep_summary.json --md results/sweep_summary.md
 
-- `sepsisnet/config/config.yaml` documents the intended architecture and
-  training hyperparameters, but the scripts under `scripts/` do not load it
-  — they set hyperparameters directly in code (this matches how every
-  number in the manuscript was actually produced). One value in the YAML is
-  stale: it lists `dropout_rate: 0.5`, while the model actually trained
-  (`sepsisnet/src/models.py`, and every run script) uses `dropout_rate=0.4`.
-- The synthetic generator (`sepsisnet/src/data_loader.py`) is seeded
-  end-to-end via `numpy.random.default_rng(seed)`; the default pipeline
-  seed is 42.
+# 2. seed-42 illustrative run (Tables 6-8, Figures 4-9)
+python scripts/run_seed42.py --out runs/seed42_pinned_a
+python scripts/evaluate_methods.py runs/seed42_pinned_a/predictions.npz --out results/seed42_pinned_metrics.json --md results/seed42_pinned_metrics.md
+python scripts/seed42_detailed.py --run runs/seed42_pinned_a --out results/seed42_pinned_detailed.json
+python scripts/escalation_analysis.py runs/seed42_pinned_a/predictions.npz --p-key p_mc_corrected --std-key std_corrected --out results/seed42_pinned_escalation_corrected.json
 
-## Citation
+# 3. reproducibility check between two runs
+python scripts/compare_runs.py runs/seed42_pinned_a runs/<other_run> --out results/<file>.json
 
-If you use this code, please cite the manuscript (full citation to be
-added once the DOI is assigned).
+# 4. figures (writes figures/)
+python scripts/regenerate_figures_rev4.py
 
-## Contact
+# 5. Table 9 (previous version): provenance only; the non-deterministic sweep is
+#    not re-runnable to identical values by construction. See table9_provenance/.
+```
+With the downloaded artifacts (`RELEASE_ARTIFACTS.md`) placed under `runs/`,
+steps 1–2 can be skipped and all tables/figures recomputed from the saved
+predictions (`summarize_sweep.py`, `evaluate_methods.py`, `seed42_detailed.py`,
+`escalation_analysis.py`, `regenerate_figures_rev4.py`).
 
-Ikram Dahamou (corresponding author) — `dahamou.ikram@usms.ac.ma`
-Faculty of Science and Technology, Sultan Moulay Slimane University, Beni
-Mellal, Morocco.
+## Changes from the previous release (commit c041e0e)
+
+* `uncertainty.py`: MC Dropout no longer switches BatchNorm to batch statistics
+  (`bn_mode="inference"` default); the previous behaviour is `bn_mode="batch"`.
+* `mdp_escalation.py`: per-stay counter (`stay_ids`), `alpha` parameter; default unchanged.
+* All runners seed Python's `random` via `keras.utils.set_random_seed` (the previous
+  multi-seed and determinism-check scripts seeded only NumPy and TensorFlow, which is
+  not sufficient in Keras 3.14.1) and take explicit output folders.
+* `run_authoritative.py`, `run_multiseed_10seed_deterministic.py`,
+  `determinism_check_run.py`, `run_multiseed_fast.py` and the previous figure/verification
+  scripts are superseded by `run_seed42.py`, `run_sweep.py` (`--tag a/b` replaces the
+  determinism check), `regenerate_figures_rev4.py` and the summary scripts.
+* README claims corrected: no "Petri Net verification", "deadlock-free", fixed
+  "expected results" or "verified reproduction" claims; no `main.py`.

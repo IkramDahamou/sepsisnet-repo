@@ -1,0 +1,282 @@
+[
+  {
+    "seed": 7,
+    "test_positives": 18,
+    "CNN_LSTM_deterministic": {
+      "AUROC": 0.9674,
+      "AUPRC": 0.9035
+    },
+    "CNN_LSTM_MC": {
+      "AUROC": 0.9636,
+      "AUPRC": 0.8738
+    },
+    "LSTM_only": {
+      "AUROC": 0.887,
+      "AUPRC": 0.8441
+    },
+    "elapsed_sec": 338.8,
+    "max_epochs": 15,
+    "mc_passes": 50,
+    "determinism_config": {
+      "PYTHONHASHSEED": "0",
+      "TF_ENABLE_ONEDNN_OPTS": "0",
+      "TF_DETERMINISTIC_OPS": "1",
+      "intra_op_threads": 1,
+      "inter_op_threads": 1,
+      "enable_op_determinism": true
+    },
+    "note": null
+  },
+  {
+    "seed": 13,
+    "test_positives": 18,
+    "CNN_LSTM_deterministic": {
+      "AUROC": 0.8649,
+      "AUPRC": 0.7506
+    },
+    "CNN_LSTM_MC": {
+      "AUROC": 0.8908,
+      "AUPRC": 0.7828
+    },
+    "LSTM_only": {
+      "AUROC": 0.908,
+      "AUPRC": 0.8073
+    },
+    "elapsed_sec": 245.8,
+    "max_epochs": 15,
+    "mc_passes": 50,
+    "determinism_config": {
+      "PYTHONHASHSEED": "0",
+      "TF_ENABLE_ONEDNN_OPTS": "0",
+      "TF_DETERMINISTIC_OPS": "1",
+      "intra_op_threads": 1,
+      "inter_op_threads": 1,
+      "enable_op_determinism": true
+    },
+    "note": null
+  },
+  {
+    "seed": 21,
+    "test_positives": 18,
+    "CNN_LSTM_deterministic": {
+      "AUROC": 0.7739,
+      "AUPRC": 0.6636
+    },
+    "CNN_LSTM_MC": {
+      "AUROC": 0.751,
+      "AUPRC": 0.6211
+    },
+    "LSTM_only": {
+      "AUROC": 0.9272,
+      "AUPRC": 0.8657
+    },
+    "elapsed_sec": 334.9,
+    "max_epochs": 15,
+    "mc_passes": 50,
+    "determinism_config": {
+      "PYTHONHASHSEED": "0",
+      "TF_ENABLE_ONEDNN_OPTS": "0",
+      "TF_DETERMINISTIC_OPS": "1",
+      "intra_op_threads": 1,
+      "inter_op_threads": 1,
+      "enable_op_determinism": true
+    },
+    "note": null
+  },
+  {
+    "seed": 42,
+    "test_positives": 18,
+    "CNN_LSTM_deterministic": {
+      "AUROC": 0.8678,
+      "AUPRC": 0.6721
+    },
+    "CNN_LSTM_MC": {
+      "AUROC": 0.8515,
+      "AUPRC": 0.6135
+    },
+    "LSTM_only": {
+      "AUROC": 0.8429,
+      "AUPRC": 0.7294
+    },
+    "elapsed_sec": 280.1,
+    "max_epochs": 15,
+    "mc_passes": 50,
+    "determinism_config": {
+      "PYTHONHASHSEED": "0",
+      "TF_ENABLE_ONEDNN_OPTS": "0",
+      "TF_DETERMINISTIC_OPS": "1",
+      "intra_op_threads": 1,
+      "inter_op_threads": 1,
+      "enable_op_determinism": true
+    },
+    "note": "rerun under fast-sweep config (epochs=15, MC=50); NOT the manuscript's primary seed-42 config (epochs=30, MC=100)"
+  },
+  {
+    "seed": 55,
+    "test_positives": 18,
+    "CNN_LSTM_deterministic": {
+      "AUROC": 0.8381,
+      "AUPRC": 0.6892
+    },
+    "CNN_LSTM_MC": {
+      "AUROC": 0.8094,
+      "AUPRC": 0.6717
+    },
+    "LSTM_only": {
+      "AUROC": 0.8908,
+      "AUPRC": 0.806
+    },
+    "elapsed_sec": 307.3,
+    "max_epochs": 15,
+    "mc_passes": 50,
+    "determinism_config": {
+      "PYTHONHASHSEED": "0",
+      "TF_ENABLE_ONEDNN_OPTS": "0",
+      "TF_DETERMINISTIC_OPS": "1",
+      "intra_op_threads": 1,
+      "inter_op_threads": 1,
+      "enable_op_determinism": true
+    },
+    "note": null
+  },
+  {
+    "seed": 67,
+    "test_positives": 18,
+    "CNN_LSTM_deterministic": {
+      "AUROC": 0.933,
+      "AUPRC": 0.8471
+    },
+    "CNN_LSTM_MC": {
+      "AUROC": 0.9234,
+      "AUPRC": 0.8339
+    },
+    "LSTM_only": {
+      "AUROC": 0.8927,
+      "AUPRC": 0.8067
+    },
+    "elapsed_sec": 265.3,
+    "max_epochs": 15,
+    "mc_passes": 50,
+    "determinism_config": {
+      "PYTHONHASHSEED": "0",
+      "TF_ENABLE_ONEDNN_OPTS": "0",
+      "TF_DETERMINISTIC_OPS": "1",
+      "intra_op_threads": 1,
+      "inter_op_threads": 1,
+      "enable_op_determinism": true
+    },
+    "note": null
+  },
+  {
+    "seed": 79,
+    "test_positives": 18,
+    "CNN_LSTM_deterministic": {
+      "AUROC": 0.9205,
+      "AUPRC": 0.8175
+    },
+    "CNN_LSTM_MC": {
+      "AUROC": 0.9052,
+      "AUPRC": 0.7657
+    },
+    "LSTM_only": {
+      "AUROC": 0.9033,
+      "AUPRC": 0.8577
+    },
+    "elapsed_sec": 253.1,
+    "max_epochs": 15,
+    "mc_passes": 50,
+    "determinism_config": {
+      "PYTHONHASHSEED": "0",
+      "TF_ENABLE_ONEDNN_OPTS": "0",
+      "TF_DETERMINISTIC_OPS": "1",
+      "intra_op_threads": 1,
+      "inter_op_threads": 1,
+      "enable_op_determinism": true
+    },
+    "note": null
+  },
+  {
+    "seed": 91,
+    "test_positives": 18,
+    "CNN_LSTM_deterministic": {
+      "AUROC": 0.7605,
+      "AUPRC": 0.7319
+    },
+    "CNN_LSTM_MC": {
+      "AUROC": 0.7874,
+      "AUPRC": 0.7441
+    },
+    "LSTM_only": {
+      "AUROC": 0.8075,
+      "AUPRC": 0.7675
+    },
+    "elapsed_sec": 251.8,
+    "max_epochs": 15,
+    "mc_passes": 50,
+    "determinism_config": {
+      "PYTHONHASHSEED": "0",
+      "TF_ENABLE_ONEDNN_OPTS": "0",
+      "TF_DETERMINISTIC_OPS": "1",
+      "intra_op_threads": 1,
+      "inter_op_threads": 1,
+      "enable_op_determinism": true
+    },
+    "note": null
+  },
+  {
+    "seed": 103,
+    "test_positives": 18,
+    "CNN_LSTM_deterministic": {
+      "AUROC": 0.7797,
+      "AUPRC": 0.7512
+    },
+    "CNN_LSTM_MC": {
+      "AUROC": 0.7548,
+      "AUPRC": 0.707
+    },
+    "LSTM_only": {
+      "AUROC": 0.8132,
+      "AUPRC": 0.7803
+    },
+    "elapsed_sec": 269.6,
+    "max_epochs": 15,
+    "mc_passes": 50,
+    "determinism_config": {
+      "PYTHONHASHSEED": "0",
+      "TF_ENABLE_ONEDNN_OPTS": "0",
+      "TF_DETERMINISTIC_OPS": "1",
+      "intra_op_threads": 1,
+      "inter_op_threads": 1,
+      "enable_op_determinism": true
+    },
+    "note": null
+  },
+  {
+    "seed": 115,
+    "test_positives": 18,
+    "CNN_LSTM_deterministic": {
+      "AUROC": 0.8199,
+      "AUPRC": 0.7193
+    },
+    "CNN_LSTM_MC": {
+      "AUROC": 0.8161,
+      "AUPRC": 0.6648
+    },
+    "LSTM_only": {
+      "AUROC": 0.8678,
+      "AUPRC": 0.8098
+    },
+    "elapsed_sec": 244.4,
+    "max_epochs": 15,
+    "mc_passes": 50,
+    "determinism_config": {
+      "PYTHONHASHSEED": "0",
+      "TF_ENABLE_ONEDNN_OPTS": "0",
+      "TF_DETERMINISTIC_OPS": "1",
+      "intra_op_threads": 1,
+      "inter_op_threads": 1,
+      "enable_op_determinism": true
+    },
+    "note": null
+  }
+]

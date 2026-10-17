@@ -1,0 +1,202 @@
+[
+  {
+    "seed": 7,
+    "test_positives": 18,
+    "CNN_LSTM_deterministic": {
+      "AUROC": 0.8975,
+      "AUPRC": 0.8586
+    },
+    "CNN_LSTM_MC": {
+      "AUROC": 0.9176,
+      "AUPRC": 0.8763
+    },
+    "LSTM_only": {
+      "AUROC": 0.9157,
+      "AUPRC": 0.857
+    },
+    "elapsed_sec": 197.7,
+    "max_epochs": 15,
+    "mc_passes": 50,
+    "note": null
+  },
+  {
+    "seed": 13,
+    "test_positives": 18,
+    "CNN_LSTM_deterministic": {
+      "AUROC": 0.8946,
+      "AUPRC": 0.7515
+    },
+    "CNN_LSTM_MC": {
+      "AUROC": 0.8793,
+      "AUPRC": 0.7395
+    },
+    "LSTM_only": {
+      "AUROC": 0.9272,
+      "AUPRC": 0.8232
+    },
+    "elapsed_sec": 216.8,
+    "max_epochs": 15,
+    "mc_passes": 50,
+    "note": null
+  },
+  {
+    "seed": 21,
+    "test_positives": 18,
+    "CNN_LSTM_deterministic": {
+      "AUROC": 0.887,
+      "AUPRC": 0.8257
+    },
+    "CNN_LSTM_MC": {
+      "AUROC": 0.8611,
+      "AUPRC": 0.8121
+    },
+    "LSTM_only": {
+      "AUROC": 0.9674,
+      "AUPRC": 0.9151
+    },
+    "elapsed_sec": 256.4,
+    "max_epochs": 15,
+    "mc_passes": 50,
+    "note": null
+  },
+  {
+    "seed": 42,
+    "test_positives": 18,
+    "CNN_LSTM_deterministic": {
+      "AUROC": 0.8429,
+      "AUPRC": 0.6357
+    },
+    "CNN_LSTM_MC": {
+      "AUROC": 0.8429,
+      "AUPRC": 0.6488
+    },
+    "LSTM_only": {
+      "AUROC": 0.8429,
+      "AUPRC": 0.6826
+    },
+    "elapsed_sec": 324.2,
+    "max_epochs": 15,
+    "mc_passes": 50,
+    "note": "rerun under fast-sweep config (epochs=15, MC=50); NOT the manuscript's primary seed-42 config (epochs=30, MC=100)"
+  },
+  {
+    "seed": 55,
+    "test_positives": 18,
+    "CNN_LSTM_deterministic": {
+      "AUROC": 0.8994,
+      "AUPRC": 0.7564
+    },
+    "CNN_LSTM_MC": {
+      "AUROC": 0.8908,
+      "AUPRC": 0.8135
+    },
+    "LSTM_only": {
+      "AUROC": 0.9119,
+      "AUPRC": 0.7811
+    },
+    "elapsed_sec": 234.5,
+    "max_epochs": 15,
+    "mc_passes": 50,
+    "note": null
+  },
+  {
+    "seed": 67,
+    "test_positives": 18,
+    "CNN_LSTM_deterministic": {
+      "AUROC": 0.887,
+      "AUPRC": 0.8145
+    },
+    "CNN_LSTM_MC": {
+      "AUROC": 0.8573,
+      "AUPRC": 0.7643
+    },
+    "LSTM_only": {
+      "AUROC": 0.8592,
+      "AUPRC": 0.7208
+    },
+    "elapsed_sec": 214.7,
+    "max_epochs": 15,
+    "mc_passes": 50,
+    "note": null
+  },
+  {
+    "seed": 79,
+    "test_positives": 18,
+    "CNN_LSTM_deterministic": {
+      "AUROC": 0.955,
+      "AUPRC": 0.8762
+    },
+    "CNN_LSTM_MC": {
+      "AUROC": 0.9521,
+      "AUPRC": 0.8761
+    },
+    "LSTM_only": {
+      "AUROC": 0.9119,
+      "AUPRC": 0.8222
+    },
+    "elapsed_sec": 260.5,
+    "max_epochs": 15,
+    "mc_passes": 50,
+    "note": null
+  },
+  {
+    "seed": 91,
+    "test_positives": 18,
+    "CNN_LSTM_deterministic": {
+      "AUROC": 0.8889,
+      "AUPRC": 0.812
+    },
+    "CNN_LSTM_MC": {
+      "AUROC": 0.8659,
+      "AUPRC": 0.776
+    },
+    "LSTM_only": {
+      "AUROC": 0.8123,
+      "AUPRC": 0.7852
+    },
+    "elapsed_sec": 236.8,
+    "max_epochs": 15,
+    "mc_passes": 50,
+    "note": null
+  },
+  {
+    "seed": 103,
+    "test_positives": 18,
+    "CNN_LSTM_deterministic": {
+      "AUROC": 0.8056,
+      "AUPRC": 0.7289
+    },
+    "CNN_LSTM_MC": {
+      "AUROC": 0.7797,
+      "AUPRC": 0.6942
+    },
+    "LSTM_only": {
+      "AUROC": 0.818,
+      "AUPRC": 0.7786
+    },
+    "elapsed_sec": 245.2,
+    "max_epochs": 15,
+    "mc_passes": 50,
+    "note": null
+  },
+  {
+    "seed": 115,
+    "test_positives": 18,
+    "CNN_LSTM_deterministic": {
+      "AUROC": 0.8774,
+      "AUPRC": 0.7785
+    },
+    "CNN_LSTM_MC": {
+      "AUROC": 0.8314,
+      "AUPRC": 0.7274
+    },
+    "LSTM_only": {
+      "AUROC": 0.8199,
+      "AUPRC": 0.7798
+    },
+    "elapsed_sec": 202.8,
+    "max_epochs": 15,
+    "mc_passes": 50,
+    "note": null
+  }
+]

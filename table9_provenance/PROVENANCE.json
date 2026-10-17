@@ -1,0 +1,41 @@
+{
+  "chain": [
+    "Downloads/SepsisNet_Revision3_Submission (1)/deliverable/scripts/run_multiseed_10seed.py (no determinism settings; 15 epochs, 50 MC) -> multiseed_results_10seed.json (2026-08-08 18:53)",
+    "byte-identical copy multiseed_results_10seed_nondeterministic.json (19:25); no script performs this copy",
+    "scripts/compare_det_vs_nondet.py (2026-08-10) reads it + multiseed_results_10seed_deterministic.json -> multiseed_deterministic_vs_nondeterministic_comparison.json",
+    "Table 9 values recompute exactly from the two raw files (per-model and pooled mean/max)"
+  ],
+  "files": {
+    "run_multiseed_10seed.py": {
+      "sha256": "1a9bfaaf0951b421415de71a0c3ecf04c3cf05bed7ab84565423c1d220ad5c70",
+      "origin": "C:/Users/ikram/Downloads/SepsisNet_Revision3_Submission (1)/deliverable/scripts/run_multiseed_10seed.py",
+      "mtime": "2026-08-08 18:13"
+    },
+    "compare_det_vs_nondet.py": {
+      "sha256": "f1afec7f14f6e341d3cdb0820a8bb734808ceaded6d62ba246e2c63a458b9336",
+      "origin": "C:/Users/ikram/Downloads/SepsisNet_Revision3_Submission (1)/deliverable/scripts/compare_det_vs_nondet.py",
+      "mtime": "2026-08-10 23:33"
+    },
+    "multiseed_results_10seed.json": {
+      "sha256": "cb0d5241a099b221f1e3f9cb1f8f08f5b4ad96261f7baa8d17d69a1e2d5b43f1",
+      "origin": "C:/Users/ikram/Downloads/SepsisNet_Revision3_Submission (1)/deliverable/multiseed_results_10seed.json",
+      "mtime": "2026-08-08 18:53"
+    },
+    "multiseed_results_10seed_nondeterministic.json": {
+      "sha256": "cb0d5241a099b221f1e3f9cb1f8f08f5b4ad96261f7baa8d17d69a1e2d5b43f1",
+      "origin": "C:/Users/ikram/Downloads/SepsisNet_Revision3_Submission (1)/deliverable/multiseed_results_10seed_nondeterministic.json",
+      "mtime": "2026-08-08 19:25"
+    },
+    "multiseed_results_10seed_deterministic.json": {
+      "sha256": "163b59e772617e1cb130da82bb9bc52224a46214f49e2766a4c0dad4642242f5",
+      "origin": "deliverable/multiseed_results_10seed_deterministic.json (v3.3)",
+      "mtime": "2026-10-15 13:33"
+    },
+    "multiseed_deterministic_vs_nondeterministic_comparison.json": {
+      "sha256": "70384bb865b03b6373847370c306358df7ae347eb0e6dc966f38efd2a6cef526",
+      "origin": "deliverable/multiseed_deterministic_vs_nondeterministic_comparison.json (v3.3)",
+      "mtime": "2026-10-15 13:33"
+    }
+  },
+  "note": "Copies only; originals untouched. Copies verified byte-identical to their origins. The non-deterministic sweep is not re-runnable to identical values by construction."
+}
